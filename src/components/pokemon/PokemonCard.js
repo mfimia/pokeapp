@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
