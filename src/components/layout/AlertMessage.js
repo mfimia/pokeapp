@@ -4,15 +4,11 @@ import { Alert } from "@mui/material";
 
 const AlertMessage = () => {
   const alertContext = useContext(AlertContext);
+  const { alert } = alertContext;
+  const { type, msg } = alert;
 
   return (
-    <Fragment>
-      {alertContext.alert !== null && (
-        <Alert severity={alertContext.alert.type}>
-          {alertContext.alert.msg}
-        </Alert>
-      )}
-    </Fragment>
+    <Fragment>{msg !== null && <Alert severity={type}>{msg}</Alert>}</Fragment>
   );
 };
 
