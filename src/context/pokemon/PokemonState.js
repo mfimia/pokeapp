@@ -3,6 +3,7 @@ import PokemonContext from "./PokemonContext";
 
 function PokemonState(props) {
   const [loading, setLoading] = useState(true);
+
   const [pokemonList, setPokemonList] = useState([]);
 
   // Get pokemons
@@ -13,7 +14,8 @@ function PokemonState(props) {
         `https://pokeapi.co/api/v2/pokemon?limit=16&offset=${offset}`
       );
       const pokemonData = await res.json();
-      setPokemonList(pokemonData);
+      setPokemonList(pokemonData.results);
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -25,6 +27,7 @@ function PokemonState(props) {
         pokemonList,
         loading,
         getPokemonList,
+        setPokemonList,
       }}
     >
       {props.children}
