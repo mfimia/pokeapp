@@ -65,7 +65,7 @@ const IndividualPokemonCard = ({ basicInfo, species }) => {
             )}
           </Typography>
           <Typography gutterBottom variant="body2" color="text.secondary">
-            {species.flavor_text_entries[9].flavor_text}
+            {species.flavor_text_entries[habitat ? 9 : 1].flavor_text}
           </Typography>
           <Typography gutterBottom variant="body2" color="primary">
             ID:{" "}
@@ -82,7 +82,7 @@ const IndividualPokemonCard = ({ basicInfo, species }) => {
           <Typography gutterBottom variant="body2" color="primary">
             Habitat:{" "}
             <Typography component="span" variant="body2" color="text.secondary">
-              {capitalize(habitat.name)}
+              {habitat ? capitalize(habitat.name) : "Unknown"}
             </Typography>
           </Typography>
           <Typography gutterBottom variant="body2" color="primary">
