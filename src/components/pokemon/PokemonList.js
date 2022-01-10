@@ -10,7 +10,7 @@ const PokemonList = () => {
 
   const pokemonContext = useContext(PokemonContext);
 
-  const { getPokemonList, pokemonList, loading, setPokemonList } =
+  const { getPokemonList, pokemonList, loading, setPokemonList, pageCount } =
     pokemonContext;
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const PokemonList = () => {
       <Pagination
         variant="outlined"
         page={page + 1}
-        count={57}
+        count={Math.round(pageCount / 16)}
         onChange={handleChange}
         color="primary"
         size="large"
