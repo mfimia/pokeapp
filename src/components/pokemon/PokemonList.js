@@ -5,6 +5,9 @@ import { Pagination } from "@mui/material";
 import Spinner from "../layout/Spinner";
 import Grid from "@mui/material/Grid";
 
+// Setting the count manually given that API is not fully working
+const MAX_PAGS = 57;
+
 const PokemonList = () => {
   const [page, setPage] = useState(0);
 
@@ -29,7 +32,7 @@ const PokemonList = () => {
       <Pagination
         variant="outlined"
         page={page + 1}
-        count={Math.round(pageCount / 16)}
+        count={MAX_PAGS || Math.round(pageCount / 16)}
         onChange={handleChange}
         color="primary"
         size="large"
