@@ -44,7 +44,7 @@ const PokemonPage = () => {
         <TextField
           value={value}
           onChange={handleChange}
-          label="Type a POKéMON"
+          label="Type a POKéMON (name/ID)"
           variant="standard"
         />
       </Box>
