@@ -52,7 +52,9 @@ const Navbar = () => {
               fontFamily: "Pokemon Solid",
             }}
           >
-            PokéApp
+            <Link color="white" style={linkStyle} to="/">
+              PokéApp
+            </Link>
           </Typography>
           <Stack spacing={2} direction="row">
             <Link style={linkStyle} to="/">
