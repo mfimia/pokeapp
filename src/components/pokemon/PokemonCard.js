@@ -36,7 +36,7 @@ const PokemonCard = ({ pokemon }) => {
 
   if (pokemonData.basicInfo) {
     return (
-      <Grid item xs={3}>
+      <Grid item xs={12} sm={6} md={4} lg={3}>
         <Card elevation={2}>
           <CardHeader
             avatar={<Avatar>{pokemonData.basicInfo.id}</Avatar>}
