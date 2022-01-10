@@ -1,13 +1,17 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import PokemonContext from "../../context/pokemon/PokemonContext";
 import { capitalize, Box, Chip } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import StatsTable from "./StatsTable";
+import Spinner from "../layout/Spinner";
 
-const IndividualPokemonCard = ({ pokemon }) => {
-  const { basicInfo, species } = pokemon;
+const IndividualPokemonCard = ({ basicInfo, species }) => {
+  const pokemonContext = useContext(PokemonContext);
+  const { loading } = pokemonContext;
 
   const { name, id, stats, types } = basicInfo;
   const { habitat, is_legendary, generation, is_mythical } = species;
@@ -22,9 +26,23 @@ const IndividualPokemonCard = ({ pokemon }) => {
     />
   ));
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <Box component="div" sx={{ my: 6 }}>
-      <Card elevation={6} sx={{ maxWidth: "50%", margin: "0 auto" }}>
+      <Card
+        elevation={6}
+        sx={{
+          width: {
+            xs: "80%",
+            sm: "70%",
+            md: "50%",
+          },
+          margin: "0 auto",
+        }}
+      >
         <CardMedia
           component="img"
           alt={name}
@@ -78,7 +96,8 @@ const IndividualPokemonCard = ({ pokemon }) => {
 };
 
 IndividualPokemonCard.propTypes = {
-  pokemon: PropTypes.object.isRequired,
+  basicInfo: PropTypes.object.isRequired,
+  species: PropTypes.object.isRequired,
 };
 
 export default IndividualPokemonCard;
