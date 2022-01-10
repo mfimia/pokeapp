@@ -1,19 +1,20 @@
 import { useState, useContext, Fragment } from "react";
+import AlertContext from "../../context/alert/AlertContext";
+import PokemonContext from "../../context/pokemon/PokemonContext";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { P } from "../../utils/Pokedex";
-import AlertContext from "../../context/alert/AlertContext";
 import AlertMessage from "../layout/AlertMessage";
 import CardSkeleton from "../layout/CardSkeleton";
 import IndividualPokemonCard from "./IndividualPokemonCard";
 
 const PokemonPage = () => {
   const [value, setValue] = useState("");
-  const [pokemon, setPokemon] = useState({ basicInfo: null, species: null });
 
   const alertContext = useContext(AlertContext);
+  const pokemonContext = useContext(PokemonContext);
 
   const { displayAlert, clearAlert } = alertContext;
+  const { basicInfo, species, getIndividualPokemonData } = pokemonContext;
 
   const handleChange = (e) => setValue(e.target.value);
 
@@ -21,20 +22,15 @@ const PokemonPage = () => {
     e.preventDefault();
     if (value) {
       clearAlert();
-      try {
-        const basicInfo = await P.getPokemonByName(value);
-        const species = await P.getPokemonSpeciesByName(value);
-        setPokemon((prev) => {
-          return { ...prev, basicInfo, species };
-        });
-        setValue("");
-      } catch (err) {
-        displayAlert("Pokemon not found!", "error", true);
-      }
+      const response = await getIndividualPokemonData(value.toLowerCase());
+      response
+        ? setValue("")
+        : displayAlert("Pokemon not found!", "error", true);
     } else {
       displayAlert("Please write something!", "warning", true);
     }
   };
+
   return (
     <Fragment>
       <Box
@@ -53,8 +49,8 @@ const PokemonPage = () => {
         />
       </Box>
       <AlertMessage />
-      {pokemon.basicInfo ? (
-        <IndividualPokemonCard pokemon={pokemon} />
+      {basicInfo.name ? (
+        <IndividualPokemonCard basicInfo={basicInfo} species={species} />
       ) : (
         <CardSkeleton />
       )}
