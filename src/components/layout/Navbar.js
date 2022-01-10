@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 
 const linkStyle = {
   textDecoration: "none",
@@ -29,18 +30,26 @@ const Navbar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+          <Box
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+            color="inherit"
+          >
+            <CatchingPokemonIcon fontSize="large" />
+          </Box>
           <Typography
             variant="h5"
             noWrap
             component="div"
             sx={{
               flexGrow: 1,
-              display: { xs: "none", md: "block" },
-              letterSpacing: 8,
+              display: { xs: "none", sm: "block" },
+              letterSpacing: 4,
               ml: 4,
-              fontWeight: 900,
-              fontFamily: "Roboto Slab",
-              textShadow: "2px 4px 3px rgba(0,0,0,0.5)",
+              fontFamily: "Pokemon Solid",
             }}
           >
             PokéApp
