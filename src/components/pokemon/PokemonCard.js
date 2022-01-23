@@ -31,6 +31,11 @@ const PokemonCard = ({ pokemon }) => {
 
   useEffect(() => {
     getPokemonData();
+    return () =>
+      setPokemonData({
+        basicInfo: null,
+        species: null,
+      });
     // eslint-disable-next-line
   }, []);
 
