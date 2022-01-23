@@ -50,7 +50,7 @@ function PokemonState(props) {
         pokemon["name"].includes(e.target.value)
       );
       setFilteredList(filter);
-      if (inputValue === 3 && page !== 0) {
+      if (inputValue.length === 3 && page !== 0) {
         setPage(0);
       }
     }
