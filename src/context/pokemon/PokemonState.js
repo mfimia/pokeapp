@@ -4,9 +4,11 @@ import { P } from "../../utils/Pokedex";
 
 function PokemonState(props) {
   const [loading, setLoading] = useState(true);
-  const [pageCount, setPageCount] = useState(null);
 
+  const [inputValue, setInputValue] = useState("");
+  const [filteredList, setFilteredList] = useState([]);
   const [pokemonList, setPokemonList] = useState([]);
+  const [page, setPage] = useState(0);
 
   const [basicInfo, setBasicInfo] = useState({});
   const [species, setSpecies] = useState({});
@@ -16,11 +18,10 @@ function PokemonState(props) {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=16&offset=${offset}`
+        `https://pokeapi.co/api/v2/pokemon?limit=1118&offset=${offset}`
       );
       const pokemonData = await res.json();
       setPokemonList(pokemonData.results);
-      setPageCount(pokemonData.count);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -42,14 +43,33 @@ function PokemonState(props) {
     }
   };
 
+  const updateList = (e) => {
+    setInputValue(e.target.value);
+    if (e.target.value.length >= 3) {
+      const filter = pokemonList.filter((pokemon) =>
+        pokemon["name"].includes(e.target.value)
+      );
+      setFilteredList(filter);
+      if (inputValue === 3 && page !== 0) {
+        setPage(0);
+      }
+    }
+  };
+
   return (
     <PokemonContext.Provider
       value={{
         pokemonList,
         loading,
-        pageCount,
         basicInfo,
         species,
+        inputValue,
+        filteredList,
+        page,
+        setPage,
+        setFilteredList,
+        setInputValue,
+        updateList,
         getPokemonList,
         setPokemonList,
         getIndividualPokemonData,
