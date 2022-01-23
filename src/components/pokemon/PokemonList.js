@@ -1,20 +1,24 @@
-import { useContext, useEffect, Fragment, useState } from "react";
+import { useContext, useEffect, Fragment } from "react";
 import PokemonContext from "../../context/pokemon/PokemonContext";
 import PokemonCard from "./PokemonCard";
-import { Pagination } from "@mui/material";
+import { Box, Pagination, TextField } from "@mui/material";
 import Spinner from "../layout/Spinner";
 import Grid from "@mui/material/Grid";
 
-// Setting the count manually given that API is not fully working
-const MAX_PAGS = 57;
-
 const PokemonList = () => {
-  const [page, setPage] = useState(0);
-
   const pokemonContext = useContext(PokemonContext);
 
-  const { getPokemonList, pokemonList, loading, setPokemonList, pageCount } =
-    pokemonContext;
+  const {
+    getPokemonList,
+    pokemonList,
+    loading,
+    setPokemonList,
+    inputValue,
+    filteredList,
+    page,
+    setPage,
+    updateList,
+  } = pokemonContext;
 
   useEffect(() => {
     getPokemonList();
@@ -22,39 +26,59 @@ const PokemonList = () => {
     // eslint-disable-next-line
   }, []);
 
-  const handleChange = (event, value) => {
-    setPage(value - 1);
-    getPokemonList((value - 1) * 16);
-  };
+  const handleChange = (_, value) => setPage(value - 1);
 
   return (
     <Fragment>
-      <Pagination
-        variant="outlined"
-        page={page + 1}
-        count={MAX_PAGS || Math.round(pageCount / 16)}
-        onChange={handleChange}
-        color="primary"
-        size="large"
-        sx={{
-          mt: 1.5,
-          ml: 1.5,
-        }}
-      />
-
+      <Box display={"flex"} justifyContent={"space-between"} mt={1}>
+        <Pagination
+          variant="outlined"
+          page={page + 1}
+          count={
+            inputValue.length >= 3
+              ? Math.round(filteredList.length / 16)
+              : Math.round(pokemonList.length / 16)
+          }
+          onChange={handleChange}
+          color="primary"
+          size="large"
+          sx={{
+            mt: 1.5,
+            ml: 1.5,
+          }}
+        />
+        <TextField
+          value={inputValue}
+          onChange={updateList}
+          label="Filter..."
+          variant="standard"
+        />
+      </Box>
       {loading ? (
         <Spinner />
       ) : (
         <Grid container spacing={4} my={2}>
-          {pokemonList.map((pokemon) => (
-            <PokemonCard key={pokemon.name} pokemon={pokemon} />
-          ))}
+          {inputValue.length >= 3
+            ? filteredList
+                .slice(page * 16, page * 16 + 16)
+                .map((pokemon) => (
+                  <PokemonCard key={pokemon.name} pokemon={pokemon} />
+                ))
+            : pokemonList
+                .slice(page * 16, page * 16 + 16)
+                .map((pokemon) => (
+                  <PokemonCard key={pokemon.name} pokemon={pokemon} />
+                ))}
         </Grid>
       )}
       {!loading && (
         <Pagination
           variant="outlined"
-          count={57}
+          count={
+            inputValue.length >= 3
+              ? Math.round(filteredList.length / 16)
+              : Math.round(pokemonList.length / 16)
+          }
           page={page + 1}
           onChange={handleChange}
           color="primary"
