@@ -36,7 +36,7 @@ const PokemonList = () => {
           page={page + 1}
           count={
             inputValue.length >= 3
-              ? Math.round(filteredList.length / 16)
+              ? Math.floor(filteredList.length / 16)
               : Math.round(pokemonList.length / 16)
           }
           onChange={handleChange}
@@ -76,7 +76,7 @@ const PokemonList = () => {
           variant="outlined"
           count={
             inputValue.length >= 3
-              ? Math.round(filteredList.length / 16)
+              ? Math.floor(filteredList.length / 16)
               : Math.round(pokemonList.length / 16)
           }
           page={page + 1}

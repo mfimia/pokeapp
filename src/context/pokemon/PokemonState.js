@@ -2,7 +2,7 @@ import { useState } from "react";
 import PokemonContext from "./PokemonContext";
 import { P } from "../../utils/Pokedex";
 
-function PokemonState(props) {
+const PokemonState = (props) => {
   const [loading, setLoading] = useState(true);
 
   const [inputValue, setInputValue] = useState("");
@@ -14,11 +14,11 @@ function PokemonState(props) {
   const [species, setSpecies] = useState({});
 
   // Get list of pokemons
-  const getPokemonList = async (offset = 0) => {
+  const getPokemonList = async () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=1118&offset=${offset}`
+        `https://pokeapi.co/api/v2/pokemon?limit=1118&offset=0`
       );
       const pokemonData = await res.json();
       setPokemonList(pokemonData.results);
@@ -78,6 +78,6 @@ function PokemonState(props) {
       {props.children}
     </PokemonContext.Provider>
   );
-}
+};
 
 export default PokemonState;

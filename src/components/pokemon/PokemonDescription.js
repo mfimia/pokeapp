@@ -19,7 +19,7 @@ const PokemonDescription = ({ basicInfo, species }) => {
   const [value, setValue] = useState(0);
   const { stats, types, weight, moves } = basicInfo;
 
-  const handleChange = (event, newValue) => setValue(newValue);
+  const handleChange = (_, newValue) => setValue(newValue);
 
   const typeChips = types.map((type, index) => (
     <Chip
