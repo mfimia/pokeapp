@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { ReactChild, useState } from "react";
 import AlertContext from "./AlertContext";
+import { Alert } from "./AlertContext";
 
-const AlertState = (props) => {
-  const [alert, setAlert] = useState({
+const AlertState = (props: { children: ReactChild }) => {
+  const [alert, setAlert] = useState<Alert>({
     msg: null,
     type: null,
   });
 
   // Set Alert
-  const displayAlert = (msg, type, temp = false) => {
+  const displayAlert = (
+    msg: string,
+    type: string,
+    temp: boolean = false
+  ): void => {
     setAlert({ msg, type });
     temp &&
       setTimeout(() => {
@@ -17,7 +22,7 @@ const AlertState = (props) => {
   };
 
   // Clear Alert
-  const clearAlert = () => {
+  const clearAlert = (): void => {
     setAlert({ msg: null, type: null });
   };
 
