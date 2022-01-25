@@ -2,7 +2,12 @@ import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-const TabPanel = (props) => {
+const TabPanel = (props: {
+  [x: string]: any;
+  children: any;
+  value: any;
+  index: any;
+}) => {
   const { children, value, index, ...other } = props;
 
   return (
