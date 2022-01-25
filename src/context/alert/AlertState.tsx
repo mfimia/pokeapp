@@ -1,17 +1,19 @@
-import { ReactChild, useState } from "react";
+import { AlertColor } from "@mui/material";
+import { useState } from "react";
+import { IproviderProps } from "../../utils/IproviderProps";
 import AlertContext from "./AlertContext";
 import { Alert } from "./AlertContext";
 
-const AlertState = (props: { children: ReactChild }) => {
+const AlertState = (props: IproviderProps) => {
   const [alert, setAlert] = useState<Alert>({
     msg: null,
-    type: null,
+    type: undefined,
   });
 
   // Set Alert
   const displayAlert = (
     msg: string,
-    type: string,
+    type: AlertColor,
     temp: boolean = false
   ): void => {
     setAlert({ msg, type });
@@ -23,7 +25,7 @@ const AlertState = (props: { children: ReactChild }) => {
 
   // Clear Alert
   const clearAlert = (): void => {
-    setAlert({ msg: null, type: null });
+    setAlert({ msg: null, type: undefined });
   };
 
   return (

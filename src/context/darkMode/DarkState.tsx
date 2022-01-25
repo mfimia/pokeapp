@@ -1,12 +1,9 @@
-import { useState, useEffect, ReactChild } from "react";
-import DarkContext from "./DarkContext";
+import { useState, useEffect } from "react";
+import { IproviderProps } from "../../utils/IproviderProps";
+import DarkContext, { darkPref } from "./DarkContext";
 
-const DarkState = (props: { children: ReactChild }) => {
-  const darkPref = JSON.parse(
-    localStorage.getItem("darkModePref-pokeapp") || ""
-  );
-
-  const [mode, setMode] = useState<string>(darkPref || "light");
+const DarkState = (props: IproviderProps) => {
+  const [mode, setMode] = useState(darkPref);
 
   useEffect(() => {
     localStorage.setItem("darkModePref-pokeapp", JSON.stringify(mode));

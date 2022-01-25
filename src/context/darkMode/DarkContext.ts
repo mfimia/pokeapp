@@ -1,10 +1,20 @@
+import { PaletteMode } from "@mui/material";
 import { createContext } from "react";
 
 interface DarkMode {
-  mode: string;
+  mode: PaletteMode;
   toggleMode: () => void;
 }
 
-const DarkContext = createContext<DarkMode | null>(null);
+export const darkPref: PaletteMode = JSON.parse(
+  localStorage.getItem("darkModePref-pokeapp") || "light"
+);
+
+const initialState = {
+  mode: darkPref,
+  toggleMode: () => {},
+};
+
+const DarkContext = createContext<DarkMode>(initialState);
 
 export default DarkContext;

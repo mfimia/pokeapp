@@ -1,8 +1,9 @@
 import { useState } from "react";
 import PokemonContext from "./PokemonContext";
 import { P } from "../../utils/Pokedex";
+import { IproviderProps } from "../../utils/IproviderProps";
 
-const PokemonState = (props) => {
+const PokemonState = (props: IproviderProps) => {
   const [loading, setLoading] = useState(true);
 
   const [inputValue, setInputValue] = useState("");
@@ -10,8 +11,44 @@ const PokemonState = (props) => {
   const [pokemonList, setPokemonList] = useState([]);
   const [page, setPage] = useState(0);
 
-  const [basicInfo, setBasicInfo] = useState({});
-  const [species, setSpecies] = useState({});
+  const [basicInfo, setBasicInfo] = useState({
+    name: "",
+    id: 0,
+    stats: [
+      {
+        base_stat: "",
+      },
+    ],
+    types: [
+      {
+        type: {
+          name: "",
+        },
+      },
+    ],
+    sprites: {
+      other: {
+        home: {
+          front_default: "",
+        },
+      },
+    },
+  });
+  const [species, setSpecies] = useState({
+    habitat: {
+      name: "",
+    },
+    is_legendary: false,
+    generation: {
+      name: "",
+    },
+    is_mythical: false,
+    flavor_text_entries: [
+      {
+        flavor_text: "",
+      },
+    ],
+  });
 
   // Get list of pokemons
   const getPokemonList = async () => {
@@ -29,7 +66,9 @@ const PokemonState = (props) => {
   };
 
   // Get data for individual pokemon
-  const getIndividualPokemonData = async (value) => {
+  const getIndividualPokemonData = async (
+    value: string | number
+  ): Promise<boolean> => {
     try {
       setLoading(true);
       const basicInfoData = await P.getPokemonByName(value);
@@ -43,14 +82,14 @@ const PokemonState = (props) => {
     }
   };
 
-  const updateList = (e) => {
-    setInputValue(e.target.value);
-    if (e.target.value.length >= 3) {
-      const filter = pokemonList.filter((pokemon) =>
-        pokemon["name"].includes(e.target.value)
+  const updateList = (input: any) => {
+    setInputValue(input);
+    if (input.length >= 3) {
+      const filter = pokemonList.filter((pokemon: any) =>
+        pokemon["name"].includes(input)
       );
       setFilteredList(filter);
-      if (e.target.value.length === 3 && page !== 0) {
+      if (input.length === 3 && page !== 0) {
         setPage(0);
       }
     }
