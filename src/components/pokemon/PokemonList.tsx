@@ -1,5 +1,7 @@
 import { useContext, useEffect, Fragment } from "react";
-import PokemonContext from "../../context/pokemon/PokemonContext";
+import PokemonContext, {
+  PokemonListType,
+} from "../../context/pokemon/PokemonContext";
 import PokemonCard from "./PokemonCard";
 import { Box, Pagination, TextField } from "@mui/material";
 import Spinner from "../layout/Spinner";
@@ -26,7 +28,12 @@ const PokemonList = () => {
     // eslint-disable-next-line
   }, []);
 
-  const handleChange = (_, value) => setPage(value - 1);
+  const handleChange = (_: any, value: number) => setPage(value - 1);
+
+  const handleUpdate = (e: { target: { value: any } }) => {
+    const { value } = e.target;
+    updateList(value);
+  };
 
   return (
     <Fragment>
@@ -49,7 +56,7 @@ const PokemonList = () => {
         />
         <TextField
           value={inputValue}
-          onChange={updateList}
+          onChange={handleUpdate}
           label="Filter..."
           variant="standard"
         />
@@ -61,13 +68,13 @@ const PokemonList = () => {
           {inputValue.length >= 3
             ? filteredList
                 .slice(page * 16, page * 16 + 16)
-                .map((pokemon) => (
-                  <PokemonCard key={pokemon.name} pokemon={pokemon} />
+                .map((pokemon: PokemonListType["pokemon"]) => (
+                  <PokemonCard key={pokemon.name} name={pokemon.name} />
                 ))
             : pokemonList
                 .slice(page * 16, page * 16 + 16)
-                .map((pokemon) => (
-                  <PokemonCard key={pokemon.name} pokemon={pokemon} />
+                .map((pokemon: PokemonListType["pokemon"]) => (
+                  <PokemonCard key={pokemon.name} name={pokemon.name} />
                 ))}
         </Grid>
       )}

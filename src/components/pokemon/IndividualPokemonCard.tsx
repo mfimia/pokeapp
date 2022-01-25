@@ -1,6 +1,7 @@
-import PropTypes from "prop-types";
-import { useContext } from "react";
-import PokemonContext from "../../context/pokemon/PokemonContext";
+import { Key, useContext } from "react";
+import PokemonContext, {
+  PokemonTypes,
+} from "../../context/pokemon/PokemonContext";
 import { capitalize, Box, Chip } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -9,22 +10,32 @@ import Typography from "@mui/material/Typography";
 import StatsTable from "./StatsTable";
 import Spinner from "../layout/Spinner";
 
-const IndividualPokemonCard = ({ basicInfo, species }) => {
+interface IndividualPokemonTypes {
+  basicInfo: PokemonTypes["basicInfo"];
+  species: PokemonTypes["species"];
+}
+
+const IndividualPokemonCard = ({
+  basicInfo,
+  species,
+}: IndividualPokemonTypes) => {
   const pokemonContext = useContext(PokemonContext);
   const { loading } = pokemonContext;
 
   const { name, id, stats, types } = basicInfo;
   const { habitat, is_legendary, generation, is_mythical } = species;
 
-  const typeChips = types.map((type, index) => (
-    <Chip
-      color="primary"
-      component="span"
-      sx={{ mx: 1 }}
-      key={index}
-      label={capitalize(type.type.name)}
-    />
-  ));
+  const typeChips = types.map(
+    (type: { type: { name: string } }, index: Key) => (
+      <Chip
+        color="primary"
+        component="span"
+        sx={{ mx: 1 }}
+        key={index}
+        label={capitalize(type.type.name)}
+      />
+    )
+  );
 
   if (loading) {
     return <Spinner />;
@@ -93,11 +104,6 @@ const IndividualPokemonCard = ({ basicInfo, species }) => {
       </Card>
     </Box>
   );
-};
-
-IndividualPokemonCard.propTypes = {
-  basicInfo: PropTypes.object.isRequired,
-  species: PropTypes.object.isRequired,
 };
 
 export default IndividualPokemonCard;

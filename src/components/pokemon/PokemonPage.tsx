@@ -1,4 +1,4 @@
-import { useState, useContext, Fragment } from "react";
+import { useState, useContext, Fragment, SetStateAction } from "react";
 import AlertContext from "../../context/alert/AlertContext";
 import PokemonContext from "../../context/pokemon/PokemonContext";
 import Box from "@mui/material/Box";
@@ -16,9 +16,12 @@ const PokemonPage = () => {
   const { displayAlert, clearAlert } = alertContext;
   const { basicInfo, species, getIndividualPokemonData } = pokemonContext;
 
-  const handleChange = (e) => setValue(e.target.value);
+  const handleChange = (e: { target: { value: SetStateAction<string> } }) =>
+    setValue(e.target.value);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: {
+    preventDefault: () => void;
+  }): Promise<void> => {
     e.preventDefault();
     if (value) {
       clearAlert();

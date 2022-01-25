@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,6 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
+import { PokemonTypes } from "../../context/pokemon/PokemonContext";
 
 const tableFonts = {
   title: {
@@ -17,7 +17,11 @@ const tableFonts = {
   },
 };
 
-const StatsTable = ({ stats }) => {
+interface StatsType {
+  stats: PokemonTypes["basicInfo"]["stats"];
+}
+
+const StatsTable = ({ stats }: StatsType) => {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -124,10 +128,6 @@ const StatsTable = ({ stats }) => {
       </Table>
     </TableContainer>
   );
-};
-
-StatsTable.propTypes = {
-  stats: PropTypes.array.isRequired,
 };
 
 export default StatsTable;
