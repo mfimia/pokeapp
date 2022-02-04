@@ -1,7 +1,7 @@
 import { useState } from "react";
-import PokemonContext from "./PokemonContext";
-import { P } from "../../utils/Pokedex";
 import { IproviderProps } from "../../utils/IproviderProps";
+import { P } from "../../utils/Pokedex";
+import PokemonContext from "./PokemonContext";
 
 const PokemonState = (props: IproviderProps) => {
   const [loading, setLoading] = useState(true);
