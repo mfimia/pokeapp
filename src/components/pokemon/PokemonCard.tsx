@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
+import { Box, capitalize, CardActionArea, Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import { Typography, CardActionArea, Box, capitalize } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
 import Collapse from "@mui/material/Collapse";
-import PokemonDescription from "./PokemonDescription";
-import CardSkeleton from "../layout/CardSkeleton";
-import { P } from "../../utils/Pokedex";
+import Grid from "@mui/material/Grid";
+import { useEffect, useState } from "react";
 import { PokemonListType } from "../../context/pokemon/PokemonContext";
-import { emptyPokemonDescription } from "../../utils/emptyPokemonDescription";
 import { emptyPokemonData } from "../../utils/emptyPokemonData";
+import { emptyPokemonDescription } from "../../utils/emptyPokemonDescription";
+import { P } from "../../utils/Pokedex";
+import CardSkeleton from "../layout/CardSkeleton";
+import PokemonDescription from "./PokemonDescription";
 
 const PokemonCard = ({ name }: PokemonListType["pokemon"]) => {
   const [expanded, setExpanded] = useState(false);
